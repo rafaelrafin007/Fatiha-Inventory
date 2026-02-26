@@ -1,4 +1,11 @@
-export default function Topbar() {
+import { getProfile, getUser } from "@/lib/auth";
+
+export default async function Topbar() {
+  const [user, profile] = await Promise.all([getUser(), getProfile()]);
+  const displayName =
+    profile?.full_name || user?.email?.split("@")[0] || "User";
+  const email = user?.email ?? "";
+
   return (
     <header className="topbar">
       <div>
@@ -12,9 +19,9 @@ export default function Topbar() {
         <div className="topbar-user">
           <div className="topbar-avatar">FA</div>
           <div>
-            <div style={{ fontWeight: 600 }}>Fatiha Admin</div>
+            <div style={{ fontWeight: 600 }}>{displayName}</div>
             <div className="subtle" style={{ fontSize: 12 }}>
-              admin@fatiha.org
+              {email || " "}
             </div>
           </div>
         </div>

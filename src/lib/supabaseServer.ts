@@ -12,11 +12,11 @@ export const supabaseServer = async () => {
         get(name) {
           return cookieStore.get(name)?.value;
         },
-        set(name, value, options) {
-          cookieStore.set({ name, value, ...options });
+        set() {
+          // No-op in Server Components. Use middleware/route handlers for mutations.
         },
-        remove(name, options) {
-          cookieStore.set({ name, value: "", ...options });
+        remove() {
+          // No-op in Server Components. Use middleware/route handlers for mutations.
         },
       },
     }
