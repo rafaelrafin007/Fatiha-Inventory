@@ -24,8 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${dmSerif.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${dmSerif.variable}`}
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
