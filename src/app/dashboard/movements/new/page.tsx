@@ -6,7 +6,7 @@ export default function NewMovementPage() {
     <main>
       <section className="page-section">
         <Link href="/dashboard/movements" className="subtle">
-          <- Back to movements
+          {"<-"} Back to movements
         </Link>
         <h1 className="page-title" style={{ marginTop: 12 }}>
           Record movement

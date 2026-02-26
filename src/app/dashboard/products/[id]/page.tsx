@@ -9,7 +9,7 @@ export default function ProductDetailPage({ params }: PageProps) {
     <main>
       <section className="page-section">
         <Link href="/dashboard/products" className="subtle">
-          <- Back to products
+          {"<-"} Back to products
         </Link>
         <h1 className="page-title" style={{ marginTop: 12 }}>
           Product {params.id}
