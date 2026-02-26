@@ -1,19 +1,16 @@
 import DataTable from "@/components/DataTable";
 import WarehouseForm from "@/components/WarehouseForm";
+import { listWarehouses } from "@/lib/db";
 
-const rows = [
-  { id: "W-01", name: "Central Depot", location: "Lagos", manager: "A. Yusuf" },
-  { id: "W-02", name: "Relief Hub", location: "Abuja", manager: "H. Sule" },
-  { id: "W-03", name: "Clinic East", location: "Kano", manager: "N. Abdullahi" },
-];
+export default async function WarehousesPage() {
+  const rows = await listWarehouses();
 
-const columns = [
-  { key: "name", header: "Warehouse" },
-  { key: "location", header: "Location" },
-  { key: "manager", header: "Manager" },
-];
+  const columns = [
+    { key: "name", header: "Warehouse" },
+    { key: "location", header: "Location" },
+    { key: "manager", header: "Manager" },
+  ];
 
-export default function WarehousesPage() {
   return (
     <main>
       <section className="page-section">

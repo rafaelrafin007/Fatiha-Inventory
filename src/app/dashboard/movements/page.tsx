@@ -1,41 +1,23 @@
 import Link from "next/link";
 import DataTable from "@/components/DataTable";
+import { listMovements } from "@/lib/db";
 
-const rows = [
-  {
-    id: "M-900",
-    product: "Medical Kit",
-    type: "Inbound",
-    qty: 120,
-    warehouse: "Central Depot",
-  },
-  {
-    id: "M-901",
-    product: "Water Filter",
-    type: "Outbound",
-    qty: 30,
-    warehouse: "Clinic East",
-  },
-  {
-    id: "M-902",
-    product: "Blanket",
-    type: "Transfer",
-    qty: 200,
-    warehouse: "Relief Hub",
-  },
-];
+export default async function MovementsPage() {
+  const rows = await listMovements();
 
-const columns = [
-  { key: "product", header: "Product" },
-  { key: "type", header: "Type" },
-  { key: "qty", header: "Qty" },
-  { key: "warehouse", header: "Warehouse" },
-];
+  const columns = [
+    { key: "product", header: "Product" },
+    { key: "warehouse", header: "Warehouse" },
+    { key: "type", header: "Type" },
+    { key: "quantity", header: "Qty" },
+  ];
 
-export default function MovementsPage() {
   return (
     <main>
-      <section className="page-section" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <section
+        className="page-section"
+        style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+      >
         <div>
           <h1 className="page-title">Movements</h1>
           <p className="subtle">Track inbound, outbound, and transfer logs.</p>

@@ -1,24 +1,27 @@
-const kpis = [
-  { label: "Active products", value: "214", trend: "+12%" },
-  { label: "Low stock alerts", value: "9", trend: "-3%" },
-  { label: "Warehouses", value: "5", trend: "Stable" },
-  { label: "Movements (30d)", value: "1,482", trend: "+18%" },
-];
+import { supabaseServer } from "@/lib/supabaseServer";
 
-const movements = [
-  { id: 1, product: "Medical Kit", qty: 120, type: "Inbound", site: "Central Depot" },
-  { id: 2, product: "Water Filters", qty: 30, type: "Outbound", site: "Clinic East" },
-  { id: 3, product: "Blankets", qty: 200, type: "Transfer", site: "Relief Hub" },
-];
+export default async function DashboardPage() {
+  const supabase = await supabaseServer();
 
-export default function DashboardPage() {
+  const [{ count: productCount }, { count: warehouseCount }, { count: movementCount }] =
+    await Promise.all([
+      supabase.from("products").select("id", { count: "exact", head: true }),
+      supabase.from("warehouses").select("id", { count: "exact", head: true }),
+      supabase.from("movements").select("id", { count: "exact", head: true }),
+    ]);
+
+  const kpis = [
+    { label: "Active products", value: productCount ?? 0, trend: "Live" },
+    { label: "Warehouses", value: warehouseCount ?? 0, trend: "Live" },
+    { label: "Movements", value: movementCount ?? 0, trend: "Live" },
+  ];
+
   return (
     <main>
       <section className="page-section">
         <h1 className="page-title">Inventory Overview</h1>
         <p className="subtle">
-          Real-time snapshot of stock health, movement velocity, and warehouse
-          coverage.
+          Real-time snapshot of stock health, movement velocity, and warehouse coverage.
         </p>
       </section>
 
@@ -40,35 +43,10 @@ export default function DashboardPage() {
 
       <section className="page-section">
         <div className="card">
-          <h2 style={{ marginTop: 0 }}>Latest movements</h2>
-          <div style={{ display: "grid", gap: 12 }}>
-            {movements.map((move) => (
-              <div
-                key={move.id}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: 12,
-                  borderRadius: 12,
-                  background: "rgba(255, 255, 255, 0.04)",
-                }}
-              >
-                <div>
-                  <div style={{ fontWeight: 600 }}>{move.product}</div>
-                  <div className="subtle" style={{ fontSize: 12 }}>
-                    {move.site}
-                  </div>
-                </div>
-                <div>
-                  <div style={{ fontWeight: 600 }}>{move.qty} units</div>
-                  <div className="subtle" style={{ fontSize: 12 }}>
-                    {move.type}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <h2 style={{ marginTop: 0 }}>Next steps</h2>
+          <p className="subtle">
+            Add products and warehouses, then record movements to start tracking activity.
+          </p>
         </div>
       </section>
     </main>

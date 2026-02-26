@@ -1,57 +1,66 @@
+import { supabaseServer } from "@/lib/supabaseServer";
+
 export type Product = {
   id: string;
   name: string;
   sku: string;
-  category: string;
-  stock: number;
+  category: string | null;
+  reorder_level: number;
 };
 
 export type Warehouse = {
   id: string;
   name: string;
-  location: string;
-  manager: string;
+  location: string | null;
+  manager: string | null;
 };
 
 export type Movement = {
   id: string;
   product: string;
-  type: "Inbound" | "Outbound" | "Transfer";
-  qty: number;
   warehouse: string;
+  type: "Inbound" | "Outbound" | "Transfer";
+  quantity: number;
+  created_at: string;
 };
 
 export async function listProducts(): Promise<Product[]> {
-  return [
-    {
-      id: "P-100",
-      name: "Medical Kit",
-      sku: "MED-100",
-      category: "Relief",
-      stock: 420,
-    },
-  ];
+  const supabase = await supabaseServer();
+  const { data } = await supabase
+    .from("products")
+    .select("id, name, sku, category, reorder_level")
+    .order("created_at", { ascending: false });
+
+  return (data ?? []) as Product[];
 }
 
 export async function listWarehouses(): Promise<Warehouse[]> {
-  return [
-    {
-      id: "W-01",
-      name: "Central Depot",
-      location: "Lagos",
-      manager: "A. Yusuf",
-    },
-  ];
+  const supabase = await supabaseServer();
+  const { data } = await supabase
+    .from("warehouses")
+    .select("id, name, location, manager")
+    .order("created_at", { ascending: false });
+
+  return (data ?? []) as Warehouse[];
 }
 
 export async function listMovements(): Promise<Movement[]> {
-  return [
-    {
-      id: "M-900",
-      product: "Medical Kit",
-      type: "Inbound",
-      qty: 120,
-      warehouse: "Central Depot",
-    },
-  ];
+  const supabase = await supabaseServer();
+  const { data } = await supabase
+    .from("movements")
+    .select(
+      "id, type, quantity, created_at, product:products(name), warehouse:warehouses(name)"
+    )
+    .order("created_at", { ascending: false });
+
+  if (!data) return [];
+
+  return data.map((row: any) => ({
+    id: row.id,
+    type: row.type,
+    quantity: row.quantity,
+    created_at: row.created_at,
+    product: row.product?.name ?? "",
+    warehouse: row.warehouse?.name ?? "",
+  }));
 }

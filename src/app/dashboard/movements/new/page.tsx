@@ -1,7 +1,13 @@
 import Link from "next/link";
 import MovementForm from "@/components/MovementForm";
+import { listProducts, listWarehouses } from "@/lib/db";
 
-export default function NewMovementPage() {
+export default async function NewMovementPage() {
+  const [products, warehouses] = await Promise.all([
+    listProducts(),
+    listWarehouses(),
+  ]);
+
   return (
     <main>
       <section className="page-section">
@@ -15,7 +21,7 @@ export default function NewMovementPage() {
       </section>
 
       <section className="page-section">
-        <MovementForm />
+        <MovementForm products={products} warehouses={warehouses} />
       </section>
     </main>
   );

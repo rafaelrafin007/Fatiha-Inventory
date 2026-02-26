@@ -1,38 +1,24 @@
+import Link from "next/link";
 import DataTable from "@/components/DataTable";
 import ProductForm from "@/components/ProductForm";
+import { listProducts } from "@/lib/db";
 
-const rows = [
-  {
-    id: "P-100",
-    name: "Medical Kit",
-    sku: "MED-100",
-    category: "Relief",
-    stock: 420,
-  },
-  {
-    id: "P-101",
-    name: "Water Filter",
-    sku: "WAT-244",
-    category: "Hygiene",
-    stock: 88,
-  },
-  {
-    id: "P-102",
-    name: "Blanket",
-    sku: "BLK-013",
-    category: "Shelter",
-    stock: 1200,
-  },
-];
+export default async function ProductsPage() {
+  const rows = await listProducts();
 
-const columns = [
-  { key: "name", header: "Product" },
-  { key: "sku", header: "SKU" },
-  { key: "category", header: "Category" },
-  { key: "stock", header: "Stock" },
-];
+  const columns = [
+    {
+      key: "name",
+      header: "Product",
+      render: (row: (typeof rows)[number]) => (
+        <Link href={`/dashboard/products/${row.id}`}>{row.name}</Link>
+      ),
+    },
+    { key: "sku", header: "SKU" },
+    { key: "category", header: "Category" },
+    { key: "reorder_level", header: "Reorder" },
+  ];
 
-export default function ProductsPage() {
   return (
     <main>
       <section className="page-section">
