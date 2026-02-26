@@ -1,4 +1,8 @@
+ "use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { supabaseBrowser } from "@/lib/supabaseClient";
 
 const navItems = [
   { href: "/dashboard", label: "Overview" },
@@ -10,6 +14,15 @@ const navItems = [
 ];
 
 export default function Sidebar() {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    const supabase = supabaseBrowser();
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  };
+
   return (
     <aside className="sidebar">
       <div>
@@ -33,10 +46,20 @@ export default function Sidebar() {
       </div>
 
       <div className="sidebar-footer">
-        <div className="subtle" style={{ fontSize: 12 }}>
-          Status
+        <div>
+          <div className="subtle" style={{ fontSize: 12 }}>
+            Status
+          </div>
+          <div style={{ fontWeight: 600 }}>All systems healthy</div>
         </div>
-        <div style={{ fontWeight: 600 }}>All systems healthy</div>
+        <button
+          type="button"
+          className="button"
+          style={{ marginTop: 12, width: "100%" }}
+          onClick={handleLogout}
+        >
+          Log out
+        </button>
       </div>
     </aside>
   );
