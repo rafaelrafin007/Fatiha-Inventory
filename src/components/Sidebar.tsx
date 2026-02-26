@@ -1,5 +1,6 @@
  "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabaseClient";
@@ -27,12 +28,8 @@ export default function Sidebar() {
     <aside className="sidebar">
       <div>
         <div className="sidebar-brand">
-          <div className="sidebar-logo">FI</div>
-          <div>
-            <div style={{ fontWeight: 600 }}>Fatiha Inventory</div>
-            <div className="subtle" style={{ fontSize: 12 }}>
-              Ops Console
-            </div>
+          <div className="sidebar-logo sidebar-logo--full">
+            <Image src="/fatiha.png" alt="Fatiha logo" width={120} height={120} />
           </div>
         </div>
 
