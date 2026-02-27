@@ -1,6 +1,7 @@
 import DataTable from "@/components/DataTable";
 import WarehouseForm from "@/components/WarehouseForm";
 import { listWarehouses } from "@/lib/db";
+import T from "@/components/T";
 
 export default async function WarehousesPage() {
   const rows = await listWarehouses();
@@ -14,8 +15,12 @@ export default async function WarehousesPage() {
   return (
     <main>
       <section className="page-section">
-        <h1 className="page-title">Warehouses</h1>
-        <p className="subtle">Track storage sites and local managers.</p>
+        <h1 className="page-title">
+          <T k="warehouses" />
+        </h1>
+        <p className="subtle">
+          <T k="trackWarehouses" />
+        </p>
       </section>
 
       <section className="page-section">
@@ -23,7 +28,9 @@ export default async function WarehousesPage() {
       </section>
 
       <section className="page-section">
-        <h2 style={{ marginTop: 0 }}>Add warehouse</h2>
+        <h2 style={{ marginTop: 0 }}>
+          <T k="addWarehouse" />
+        </h2>
         <WarehouseForm />
       </section>
     </main>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabaseClient";
+import T from "@/components/T";
 
 export default function ProductForm() {
   const router = useRouter();
@@ -45,7 +46,7 @@ export default function ProductForm() {
       <div className="form-grid">
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Product name
+            <T k="productName" />
           </div>
           <input
             className="input"
@@ -57,7 +58,7 @@ export default function ProductForm() {
         </label>
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            SKU
+            <T k="sku" />
           </div>
           <input
             className="input"
@@ -69,7 +70,7 @@ export default function ProductForm() {
         </label>
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Category
+            <T k="category" />
           </div>
           <input
             className="input"
@@ -80,7 +81,7 @@ export default function ProductForm() {
         </label>
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Reorder level
+            <T k="reorderLevel" />
           </div>
           <input
             className="input"
@@ -98,7 +99,7 @@ export default function ProductForm() {
         </div>
       ) : null}
       <button className="button" type="submit" disabled={loading}>
-        {loading ? "Saving..." : "Save product"}
+        {loading ? "Saving..." : <T k="saveProduct" />}
       </button>
     </form>
   );

@@ -2,6 +2,7 @@ import Link from "next/link";
 import DataTable from "@/components/DataTable";
 import ProductForm from "@/components/ProductForm";
 import { listProducts } from "@/lib/db";
+import T from "@/components/T";
 
 export default async function ProductsPage() {
   const rows = await listProducts();
@@ -22,8 +23,12 @@ export default async function ProductsPage() {
   return (
     <main>
       <section className="page-section">
-        <h1 className="page-title">Products</h1>
-        <p className="subtle">Track stock levels and reorder thresholds.</p>
+        <h1 className="page-title">
+          <T k="products" />
+        </h1>
+        <p className="subtle">
+          <T k="trackStock" />
+        </p>
       </section>
 
       <section className="page-section">
@@ -31,7 +36,9 @@ export default async function ProductsPage() {
       </section>
 
       <section className="page-section">
-        <h2 style={{ marginTop: 0 }}>Add product</h2>
+        <h2 style={{ marginTop: 0 }}>
+          <T k="addProduct" />
+        </h2>
         <ProductForm />
       </section>
     </main>

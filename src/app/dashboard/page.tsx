@@ -1,4 +1,5 @@
 import { supabaseServer } from "@/lib/supabaseServer";
+import T from "@/components/T";
 
 export default async function DashboardPage() {
   const supabase = await supabaseServer();
@@ -19,9 +20,11 @@ export default async function DashboardPage() {
   return (
     <main>
       <section className="page-section">
-        <h1 className="page-title">Inventory Overview</h1>
+        <h1 className="page-title">
+          <T k="inventoryOverview" />
+        </h1>
         <p className="subtle">
-          Real-time snapshot of stock health, movement velocity, and warehouse coverage.
+          <T k="overviewSubtext" />
         </p>
       </section>
 

@@ -1,3 +1,5 @@
+import T from "@/components/T";
+
 const reports = [
   { title: "Low stock report", description: "Items below reorder threshold" },
   { title: "Movement summary", description: "Monthly inbound/outbound totals" },
@@ -8,8 +10,12 @@ export default function ReportsPage() {
   return (
     <main>
       <section className="page-section">
-        <h1 className="page-title">Reports</h1>
-        <p className="subtle">Generate summaries for donors and leadership.</p>
+        <h1 className="page-title">
+          <T k="reports" />
+        </h1>
+        <p className="subtle">
+          <T k="reportsSubtext" />
+        </p>
       </section>
 
       <section className="page-section" style={{ display: "grid", gap: 12 }}>

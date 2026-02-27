@@ -1,6 +1,7 @@
 import Link from "next/link";
 import DataTable from "@/components/DataTable";
 import { listMovements } from "@/lib/db";
+import T from "@/components/T";
 
 export default async function MovementsPage() {
   const rows = await listMovements();
@@ -19,11 +20,15 @@ export default async function MovementsPage() {
         style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
       >
         <div>
-          <h1 className="page-title">Movements</h1>
-          <p className="subtle">Track inbound, outbound, and transfer logs.</p>
+          <h1 className="page-title">
+            <T k="movements" />
+          </h1>
+          <p className="subtle">
+            <T k="trackMovements" />
+          </p>
         </div>
         <Link href="/dashboard/movements/new" className="button">
-          New movement
+          <T k="newMovement" />
         </Link>
       </section>
 

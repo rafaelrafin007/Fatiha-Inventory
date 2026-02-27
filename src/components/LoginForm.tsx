@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabaseClient";
+import T from "@/components/T";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit} style={{ marginTop: 24, display: "grid", gap: 12 }}>
       <label>
         <div className="subtle" style={{ marginBottom: 6 }}>
-          Email
+          <T k="email" />
         </div>
         <input
           className="input"
@@ -50,7 +51,7 @@ export default function LoginForm() {
       </label>
       <label>
         <div className="subtle" style={{ marginBottom: 6 }}>
-          Password
+          <T k="password" />
         </div>
         <input
           className="input"
@@ -67,7 +68,7 @@ export default function LoginForm() {
         </div>
       ) : null}
       <button className="button" type="submit" disabled={loading}>
-        {loading ? "Signing in..." : "Sign in"}
+        {loading ? "Signing in..." : <T k="signIn" />}
       </button>
     </form>
   );

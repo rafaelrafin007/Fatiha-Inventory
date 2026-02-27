@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabaseClient";
 import type { Product, Warehouse } from "@/lib/db";
+import T from "@/components/T";
 
 type MovementFormProps = {
   products: Product[];
@@ -53,7 +54,7 @@ export default function MovementForm({ products, warehouses }: MovementFormProps
       <div className="form-grid">
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Product
+            <T k="products" />
           </div>
           <select
             className="select"
@@ -72,7 +73,7 @@ export default function MovementForm({ products, warehouses }: MovementFormProps
         </label>
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Warehouse
+            <T k="warehouses" />
           </div>
           <select
             className="select"
@@ -91,7 +92,7 @@ export default function MovementForm({ products, warehouses }: MovementFormProps
         </label>
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Movement type
+            <T k="movementType" />
           </div>
           <select
             className="select"
@@ -107,7 +108,7 @@ export default function MovementForm({ products, warehouses }: MovementFormProps
         </label>
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Quantity
+            <T k="quantity" />
           </div>
           <input
             className="input"
@@ -121,7 +122,7 @@ export default function MovementForm({ products, warehouses }: MovementFormProps
       </div>
       <label>
         <div className="subtle" style={{ marginBottom: 6 }}>
-          Notes
+          <T k="notes" />
         </div>
         <textarea
           className="textarea"
@@ -133,7 +134,7 @@ export default function MovementForm({ products, warehouses }: MovementFormProps
       </label>
       {!hasDependencies ? (
         <div className="subtle" style={{ color: "var(--warning)" }}>
-          Add at least one product and warehouse first.
+          <T k="addFirst" />
         </div>
       ) : null}
       {error ? (
@@ -142,7 +143,7 @@ export default function MovementForm({ products, warehouses }: MovementFormProps
         </div>
       ) : null}
       <button className="button" type="submit" disabled={loading || !hasDependencies}>
-        {loading ? "Saving..." : "Record movement"}
+        {loading ? "Saving..." : <T k="saveMovement" />}
       </button>
     </form>
   );

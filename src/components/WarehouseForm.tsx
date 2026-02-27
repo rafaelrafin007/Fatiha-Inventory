@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabaseClient";
+import T from "@/components/T";
 
 export default function WarehouseForm() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function WarehouseForm() {
       <div className="form-grid">
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Warehouse name
+            <T k="warehouseName" />
           </div>
           <input
             className="input"
@@ -54,7 +55,7 @@ export default function WarehouseForm() {
         </label>
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Location
+            <T k="location" />
           </div>
           <input
             className="input"
@@ -65,7 +66,7 @@ export default function WarehouseForm() {
         </label>
         <label>
           <div className="subtle" style={{ marginBottom: 6 }}>
-            Manager
+            <T k="manager" />
           </div>
           <input
             className="input"
@@ -81,7 +82,7 @@ export default function WarehouseForm() {
         </div>
       ) : null}
       <button className="button" type="submit" disabled={loading}>
-        {loading ? "Saving..." : "Save warehouse"}
+        {loading ? "Saving..." : <T k="saveWarehouse" />}
       </button>
     </form>
   );

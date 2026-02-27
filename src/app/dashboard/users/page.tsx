@@ -1,3 +1,5 @@
+import T from "@/components/T";
+
 const roles = [
   { id: "U-01", name: "Fatiha Admin", role: "Admin", email: "admin@fatiha.org" },
   { id: "U-02", name: "Warehouse Lead", role: "Manager", email: "warehouse@fatiha.org" },
@@ -8,8 +10,12 @@ export default function UsersPage() {
   return (
     <main>
       <section className="page-section">
-        <h1 className="page-title">Users & Roles</h1>
-        <p className="subtle">Manage access levels for the inventory team.</p>
+        <h1 className="page-title">
+          <T k="users" />
+        </h1>
+        <p className="subtle">
+          <T k="usersSubtext" />
+        </p>
       </section>
 
       <section className="page-section">
