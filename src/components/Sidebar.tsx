@@ -1,8 +1,9 @@
- "use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { supabaseBrowser } from "@/lib/supabaseClient";
 import LanguageSelect from "@/components/LanguageSelect";
 import T from "@/components/T";
@@ -20,6 +21,7 @@ const navItems = [
 export default function Sidebar() {
   const router = useRouter();
   const { isOpen, close } = useSidebar();
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const handleLogout = async () => {
     const supabase = supabaseBrowser();
@@ -54,10 +56,19 @@ export default function Sidebar() {
                 <T k={item.key} />
               </Link>
             ))}
-          </nav>
-        </div>
+        </nav>
+      </div>
 
-        <div className="sidebar-footer">
+      <div className="sidebar-footer">
+        <button
+          type="button"
+          className="sidebar-settings-button"
+          onClick={() => setSettingsOpen((prev) => !prev)}
+          aria-expanded={settingsOpen}
+        >
+          <T k="settings" />
+        </button>
+        <div className={`sidebar-settings ${settingsOpen ? "is-open" : ""}`}>
           <div>
             <div className="subtle" style={{ fontSize: 12 }}>
               <T k="status" />
@@ -67,10 +78,11 @@ export default function Sidebar() {
             </div>
           </div>
           <LanguageSelect />
-          <button
-            type="button"
-            className="button"
-            style={{ marginTop: 12, width: "100%" }}
+        </div>
+        <button
+          type="button"
+          className="button"
+          style={{ marginTop: 12, width: "100%" }}
             onClick={handleLogout}
           >
             <T k="logout" />
