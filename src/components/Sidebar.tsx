@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabaseClient";
 import LanguageSelect from "@/components/LanguageSelect";
 import T from "@/components/T";
+import { useSidebar } from "@/components/SidebarProvider";
 
 const navItems = [
   { href: "/dashboard", key: "overview" as const },
@@ -18,6 +19,7 @@ const navItems = [
 
 export default function Sidebar() {
   const router = useRouter();
+  const { isOpen, close } = useSidebar();
 
   const handleLogout = async () => {
     const supabase = supabaseBrowser();
@@ -27,42 +29,54 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="sidebar">
-      <div>
-        <div className="sidebar-brand">
-          <div className="sidebar-logo sidebar-logo--full">
-            <Image src="/fatiha.png" alt="Fatiha logo" width={120} height={120} />
-          </div>
-        </div>
-
-        <nav className="sidebar-nav">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="sidebar-link">
-              <T k={item.key} />
-            </Link>
-          ))}
-        </nav>
-      </div>
-
-      <div className="sidebar-footer">
+    <>
+      <div
+        className={`sidebar-overlay ${isOpen ? "is-open" : ""}`}
+        onClick={close}
+        aria-hidden={!isOpen}
+      />
+      <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
         <div>
-          <div className="subtle" style={{ fontSize: 12 }}>
-            <T k="status" />
+          <div className="sidebar-brand">
+            <div className="sidebar-logo sidebar-logo--full">
+              <Image src="/fatiha.png" alt="Fatiha logo" width={120} height={120} />
+            </div>
           </div>
-          <div style={{ fontWeight: 600 }}>
-            <T k="systemsHealthy" />
-          </div>
+
+          <nav className="sidebar-nav">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="sidebar-link"
+                onClick={close}
+              >
+                <T k={item.key} />
+              </Link>
+            ))}
+          </nav>
         </div>
-        <LanguageSelect />
-        <button
-          type="button"
-          className="button"
-          style={{ marginTop: 12, width: "100%" }}
-          onClick={handleLogout}
-        >
-          <T k="logout" />
-        </button>
-      </div>
-    </aside>
+
+        <div className="sidebar-footer">
+          <div>
+            <div className="subtle" style={{ fontSize: 12 }}>
+              <T k="status" />
+            </div>
+            <div style={{ fontWeight: 600 }}>
+              <T k="systemsHealthy" />
+            </div>
+          </div>
+          <LanguageSelect />
+          <button
+            type="button"
+            className="button"
+            style={{ marginTop: 12, width: "100%" }}
+            onClick={handleLogout}
+          >
+            <T k="logout" />
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

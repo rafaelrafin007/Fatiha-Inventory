@@ -297,16 +297,71 @@ main {
   padding: 0 36px 36px;
 }
 
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hamburger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  padding: 8px;
+  cursor: pointer;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text);
+  border-radius: 999px;
+  margin: 5px 0;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 18, 0.62);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 30;
+}
+
+.sidebar-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @media (max-width: 1024px) {
   .dashboard-shell {
     grid-template-columns: 1fr;
   }
 
   .sidebar {
-    position: static;
-    height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: min(300px, 86vw);
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    display: block;
   }
 
   .topbar {
@@ -318,5 +373,88 @@ main {
     width: 100%;
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 18px;
+  }
+
+  .page-section {
+    margin: 18px 0;
+  }
+
+  .dashboard-main {
+    padding: 0 18px 24px;
+  }
+
+  .topbar {
+    padding: 20px 18px 8px;
+  }
+
+  .topbar-actions {
+    gap: 10px;
+  }
+
+  .sidebar {
+    padding: 20px 18px;
+    gap: 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table thead,
+  .table tbody,
+  .table tr {
+    width: 100%;
+  }
+
+  .table thead {
+    display: table;
+    table-layout: fixed;
+  }
+
+  .table tbody {
+    display: table;
+    table-layout: fixed;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 94vw;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+  }
+
+  .page-title {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+
+  .topbar-actions .input {
+    width: 100%;
+  }
+
+  .topbar-user {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
 }
