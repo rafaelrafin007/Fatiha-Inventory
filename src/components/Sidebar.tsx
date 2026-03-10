@@ -12,8 +12,12 @@ import { useSidebar } from "@/components/SidebarProvider";
 const navItems = [
   { href: "/dashboard", key: "overview" as const },
   { href: "/dashboard/products", key: "products" as const },
+  { href: "/dashboard/purchases", key: "purchases" as const },
+  { href: "/dashboard/sales", key: "sales" as const },
+  { href: "/dashboard/stock", key: "stock" as const },
   { href: "/dashboard/warehouses", key: "warehouses" as const },
   { href: "/dashboard/movements", key: "movements" as const },
+  { href: "/dashboard/expenses", key: "expenses" as const },
   { href: "/dashboard/reports", key: "reports" as const },
   { href: "/dashboard/users", key: "users" as const },
 ];
@@ -82,9 +86,9 @@ export default function Sidebar() {
         <button
           type="button"
           className="button"
-          style={{ marginTop: 12, width: "100%" }}
-            onClick={handleLogout}
-          >
+          style={{ marginTop: 6, width: "100%" }}
+          onClick={handleLogout}
+        >
             <T k="logout" />
           </button>
         </div>
