@@ -42,55 +42,57 @@ export default function Sidebar() {
         aria-hidden={!isOpen}
       />
       <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
-        <div>
-          <div className="sidebar-brand">
-            <div className="sidebar-logo sidebar-logo--full">
-              <Image src="/fatiha.png" alt="Fatiha logo" width={120} height={120} />
+        <div className="sidebar-inner">
+          <div className="sidebar-scroll">
+            <div className="sidebar-brand">
+              <div className="sidebar-logo sidebar-logo--full">
+                <Image src="/fatiha.png" alt="Fatiha logo" width={120} height={120} />
+              </div>
             </div>
+
+            <nav className="sidebar-nav">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="sidebar-link"
+                  onClick={close}
+                >
+                  <T k={item.key} />
+                </Link>
+              ))}
+            </nav>
           </div>
 
-          <nav className="sidebar-nav">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="sidebar-link"
-                onClick={close}
-              >
-                <T k={item.key} />
-              </Link>
-            ))}
-        </nav>
-      </div>
-
-      <div className="sidebar-footer">
-        <button
-          type="button"
-          className="sidebar-settings-button"
-          onClick={() => setSettingsOpen((prev) => !prev)}
-          aria-expanded={settingsOpen}
-        >
-          <T k="settings" />
-        </button>
-        <div className={`sidebar-settings ${settingsOpen ? "is-open" : ""}`}>
-          <div>
-            <div className="subtle" style={{ fontSize: 12 }}>
-              <T k="status" />
+          <div className="sidebar-footer">
+            <button
+              type="button"
+              className="sidebar-settings-button"
+              onClick={() => setSettingsOpen((prev) => !prev)}
+              aria-expanded={settingsOpen}
+            >
+              <T k="settings" />
+            </button>
+            <div className={`sidebar-settings ${settingsOpen ? "is-open" : ""}`}>
+              <div>
+                <div className="subtle" style={{ fontSize: 12 }}>
+                  <T k="status" />
+                </div>
+                <div style={{ fontWeight: 600 }}>
+                  <T k="systemsHealthy" />
+                </div>
+              </div>
+              <LanguageSelect />
             </div>
-            <div style={{ fontWeight: 600 }}>
-              <T k="systemsHealthy" />
-            </div>
+            <button
+              type="button"
+              className="button"
+              style={{ marginTop: 6, width: "100%" }}
+              onClick={handleLogout}
+            >
+              <T k="logout" />
+            </button>
           </div>
-          <LanguageSelect />
-        </div>
-        <button
-          type="button"
-          className="button"
-          style={{ marginTop: 6, width: "100%" }}
-          onClick={handleLogout}
-        >
-            <T k="logout" />
-          </button>
         </div>
       </aside>
     </>

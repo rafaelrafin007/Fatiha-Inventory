@@ -172,12 +172,10 @@ main {
   border-right: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   gap: 24px;
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow-y: auto;
 }
 
 .sidebar-brand {
@@ -237,10 +235,51 @@ main {
 }
 
 .sidebar-footer {
-  margin-top: auto;
   padding: 16px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.03);
+}
+
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 18px;
+}
+
+.sidebar-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-right: -6px;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  scrollbar-width: thin;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.sidebar-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  backdrop-filter: blur(10px);
 }
 
 .sidebar-settings-button {
