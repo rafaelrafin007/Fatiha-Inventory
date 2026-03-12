@@ -43,13 +43,13 @@ export default function Sidebar() {
       />
       <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
         <div className="sidebar-inner">
-          <div className="sidebar-scroll">
-            <div className="sidebar-brand">
-              <div className="sidebar-logo sidebar-logo--full">
-                <Image src="/fatiha.png" alt="Fatiha logo" width={120} height={120} />
-              </div>
+          <div className="sidebar-brand sidebar-brand--sticky">
+            <div className="sidebar-logo sidebar-logo--full">
+              <Image src="/fatiha.png" alt="Fatiha logo" width={120} height={120} />
             </div>
+          </div>
 
+          <div className="sidebar-scroll">
             <nav className="sidebar-nav">
               {navItems.map((item) => (
                 <Link
